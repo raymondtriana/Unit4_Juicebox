@@ -276,7 +276,7 @@ async function getPostsByTagName(tagName) {
 
 async function createTags(tagList) {
   if (tagList.length === 0) {
-    return;
+    return tagList;
   }
 
   const valuesStringInsert = tagList.map(
