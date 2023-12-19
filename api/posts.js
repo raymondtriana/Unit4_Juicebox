@@ -37,6 +37,30 @@ postsRouter.get('/', async (req, res, next) => {
   }
 });
 
+//GET POST BY ID
+postsRouter.get('/:id',async(req,res,next)=>{
+  const id = req.params.id;
+  try {
+    const allPosts = await getAllPosts();
+    const posts = allPosts.filter(post => {
+      // the post is active, doesn't matter who it belongs to
+      if (post.id == id) {
+        return true;
+      }
+      // none of the above are true
+      return false;
+    });
+
+    res.send({
+      posts
+    });
+
+  } catch (error) {
+    res.send(error);
+  }
+
+});
+
 postsRouter.post('/', requireUser, async (req, res, next) => {
   const { title, content = "" } = req.body;
 
